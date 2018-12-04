@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'govuk_template_base',
+    'govuk_template',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -63,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'govuk_template_base.context_processors.govuk_template_base',
             ],
         },
     },
@@ -119,3 +122,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+GOVUK_SERVICE_SETTINGS = {
+    'name': 'Polls',
+    'phase': 'discovery',
+    'header_link_view_name': 'polls:index',
+    'header_links': [],
+}
