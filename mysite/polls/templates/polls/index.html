@@ -2,8 +2,10 @@
 
 {% block inner_content %}
 
+    <h1 class="heading-xlarge">Choose a poll to answer</h1>
+
     {% if latest_question_list %}
-        <ul>
+        <ul class="list list-bullet">
         {% for question in latest_question_list %}
             <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
         {% endfor %}
