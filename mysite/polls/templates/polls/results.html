@@ -4,12 +4,22 @@
 
     <h1 class="heading-xlarge">{{ question.question_text }}</h1>
 
-    <ul class="list list-bullet">
-    {% for choice in question.choice_set.all %}
-        <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
-    {% endfor %}
-    </ul>
+    <table>
+        <caption class="heading-medium">Current votes</caption>
+        <tbody>
+        {% for choice in question.choice_set.all %}
+            <tr>
+                <td>{{ choice.choice_text }}</td>
+                <td>{{ choice.votes }} vote{{ choice.votes|pluralize }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-    <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+    <br/>
+
+    <p>
+        <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+    </p>
 
 {% endblock %}
