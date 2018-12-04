@@ -2,17 +2,39 @@
 
 {% block inner_content %}
 
-    <h1 class="heading-xlarge">{{ question.question_text }}</h1>
-
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
-    <form action="{% url 'polls:vote' question.id %}" method="post">
+    <form action="{% url 'polls:vote' question.id %}" novalidate method="post">
     {% csrf_token %}
-    {% for choice in question.choice_set.all %}
-        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-    {% endfor %}
-    <input type="submit" value="Vote">
+
+    {% if error_message %}
+    <div class="error-summary" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+        <h2 class="heading-medium error-summary-heading" id="error-summary-heading">
+        There was a problem submitting your form
+        </h2>
+        <ul class="error-summary-list">
+        <li><a href="#choice1">{{ error_message }}</a></li>
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="form-group {% if error_message %}form-group-error{% endif %}">
+      <fieldset>
+
+        <legend>
+          <h1 class="heading-xlarge">{{ question.question_text }}</h1>
+        </legend>
+
+        {% for choice in question.choice_set.all %}
+            <div class="multiple-choice">
+              <input id="choice{{ forloop.counter }}" type="radio" name="choice" value="{{ choice.id }}">
+              <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+            </div>
+        {% endfor %}
+
+      </fieldset>
+    </div>
+
+    <input class="button" type="submit" value="Vote">
+
     </form>
 
 {% endblock %}
