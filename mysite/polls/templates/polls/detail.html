@@ -1,6 +1,6 @@
-{% extends 'govuk_template.html' %}
+{% extends 'polls/base.html' %}
 
-{% block inner_content %}
+{% block poll_contents %}
 
     <form action="{% url 'polls:vote' question.id %}" novalidate method="post">
     {% csrf_token %}
